@@ -1,0 +1,38 @@
+.responsive-text {
+  font-size: 1rem; /* default (similar to fs-5) */
+}
+
+@media (min-width: 768px) {
+  .responsive-text {
+    font-size: 1.4rem; /* md screen */
+  }
+}
+
+@media (min-width: 992px) {
+  .responsive-text {
+    font-size: 1.5rem; /* lg screen */
+  }
+}
+
+.btn-responsive {
+  font-size: 0.8rem;        /* small for mobile */
+  padding: 0.3rem 0.8rem;   /* compact look */
+  min-width: 50px;         /* keeps consistent width */
+  
+}
+
+@media (min-width: 768px) { /* md breakpoint */
+  .btn-responsive {
+    font-size: 1rem;
+    padding: 2rem 1rem;
+    min-width: 200px;
+  }
+}
+
+@media (min-width: 992px) { /* lg breakpoint */
+  .btn-responsive {
+    font-size: 1.2rem;
+    padding: 0.6rem 1.2rem;
+    min-width: 200px;
+  }
+}

@@ -1,0 +1,21 @@
+.suggestion-card {
+  transition: 0.3s;
+  cursor: pointer;
+  /* background-color: rgb(48, 96, 136); */
+  /* color: #ccc */
+}
+
+.suggestion-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.content-header {
+  padding: 3rem 0 2rem;
+  position: relative;
+  background-color: #e3e6ec;
+  background-image: url(../img/overlay.svg),
+    linear-gradient(45deg, #eff3f9 0%, #eff3f9 100%);
+  background-size: cover;
+  z-index: 0;
+}

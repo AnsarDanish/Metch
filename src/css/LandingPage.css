@@ -1,0 +1,84 @@
+.school-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.school-name:hover {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+  background-color: #f8f9fa; /* optional highlight */
+  padding: 4px 6px; /* optional for readability */
+  border-radius: 4px; /* optional for better look */
+  position: relative;
+  z-index: 2; /* ensures it shows above other elements */
+}
+
+.feature-section {
+  background: url("../assets/choosing-bg.jpg") center center / cover no-repeat;
+}
+
+.testimony-section {
+  background: url("../assets/video-bg.jpg") center center / cover no-repeat;
+}
+
+.school-section {
+  background: url("../assets/contact-bg.jpg") center center / cover no-repeat;
+}
+
+.section-heading h2 {
+  margin-top: 10px;
+  position: relative;
+  font-size: 18px;
+  font-weight: 500;
+  color: #1c1c1c;
+  letter-spacing: 0.5px;
+  display: inline-block;
+  padding: 15px 20px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.section-heading h2:before {
+  width: 2px;
+  height: 40px;
+  background-color: rgba(0, 0, 0, 0.13);
+  position: absolute;
+  top: -40px;
+  content: "";
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.section-heading-bg h2 {
+  margin-top: 10px;
+  position: relative;
+  font-size: 18px;
+  font-weight: 500;
+  color: #f3f3f3;
+  letter-spacing: 0.5px;
+  display: inline-block;
+  padding: 15px 20px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.section-heading-bg h2:before {
+  width: 2px;
+  height: 60px;
+  background-color: rgba(255, 255, 255, 0.13);
+  position: absolute;
+  top: -60px;
+  content: "";
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.section-text {
+  color: #221f1f;
+  letter-spacing: 0.25px;
+  display: inline-block;
+  padding: 10px 10px;
+  border: 2px solid rgba(9, 8, 8, 0.1);
+}

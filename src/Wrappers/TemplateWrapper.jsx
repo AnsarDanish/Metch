@@ -4,11 +4,13 @@ import { Navigate, useRoutes } from "react-router-dom";
 import convertJsonToRoutes from "../store/convertJsonToRoutes";
 import axios from "axios";
 import NotFoundError from "../Pages/NotFoundError";
+import LandingPage from "../Pages/LandingPage";
 
 export default function TemplateWrapper() {
   const [routes, setRoutes] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { token, loca, appcode } = useContext(SMAYAContext);
+  const { token, loca, appcode, setNoTemplate, noTemplate } =
+    useContext(SMAYAContext);
   function create_mayaRouter(routes) {
     const tree = convertJsonToRoutes(routes);
     const final = [
@@ -34,22 +36,29 @@ export default function TemplateWrapper() {
           },
         });
         if (res.data.Error) {
-           setLoading(false);
-          return <Navigate to="/" replace />;
+          setLoading(false);
+          setNoTemplate(true);
+          return;
         }
-        console.log(res.data);
+        // setNoTemplate(true);
         let fn = new Function(["create_mayaRouter"], res.data.record);
 
         fn(create_mayaRouter);
       } catch (e) {
         console.error("Error", e);
-      } finally{setLoading(false)}
+      } finally {
+        setLoading(false);
+      }
     };
 
     getTemplate();
   }, [token]);
 
-  if(!loading && !routes.length) return <NotFoundError/>
+  if (noTemplate) {
+    return null;
+  }
+
+  if (!loading && !routes.length) return <NotFoundError />;
 
   const element = useRoutes(routes);
 

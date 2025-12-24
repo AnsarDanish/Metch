@@ -2,7 +2,12 @@ import React, { useRef } from "react";
 import { SMAYAContext } from "../Context";
 import { AppProperties } from "../../AppProperties";
 import { useEffect, useState } from "react";
-import { Outlet, ScrollRestoration, useNavigate } from "react-router-dom";
+import {
+  Outlet,
+  ScrollRestoration,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import axios from "axios";
 import { useRoutesStore } from "../store/useRoutesStore";
 
@@ -20,12 +25,21 @@ export default function WebWrapper() {
   const [policyData, setPolicyData] = useState();
   const [token, setToken] = useState();
   const navigate = useNavigate();
-  const [mayaRequest, setMayaRequest] = useState({});
+  const mayaObject = useLocation().state || {};
   const [userInfo, setUserInfo] = useState(() => {
     const saved = localStorage.getItem("userDetails");
     return saved ? JSON.parse(saved) : null;
   });
-  const setWidgetContext = useRef({});
+  const [noTemplate, setNoTemplate] = useState(false);
+  // const responseStore = useRef({});
+  const mayaNavigate = (path, obj = {}) => {
+    navigate(path, {
+      state: obj,
+    });
+  };
+
+  const getMayaObject = () => mayaObject;
+
   const verifyRecord = () => {
     let token = localStorage.getItem(tokenName);
     if (token !== "" && token !== null) {
@@ -49,9 +63,6 @@ export default function WebWrapper() {
           } else if (rsp === "refereshed") {
             setToken(token);
             localStorage.setItem(tokenName, res.data[1].token);
-
-            console.log("tokenName ", tokenName);
-
             localStorage.setItem("userDetails", JSON.stringify(userInfoData));
             this.loading.current = true;
           } else if (rsp === "fail" || rsp === "not_verified") {
@@ -81,9 +92,8 @@ export default function WebWrapper() {
     localStorage.removeItem(tokenName);
     localStorage.removeItem("userDetails");
     setUserInfo(null);
-
     setToken(null);
-
+    setNoTemplate(false);
     navigate("/");
   };
   useEffect(() => {
@@ -109,9 +119,12 @@ export default function WebWrapper() {
             userInfo,
             setUserInfo,
             setPolicyData,
-            setWidgetContext,
             screenWidth,
             screenHeight,
+            mayaNavigate,
+            getMayaObject,
+            noTemplate,
+            setNoTemplate,
           }}
         >
           <ScrollRestoration />

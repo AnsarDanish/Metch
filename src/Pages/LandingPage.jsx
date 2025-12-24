@@ -56,12 +56,14 @@ function LandingComponenet({
       <section className="position-relative feature-section overflow-hidden bg- border rounded shadow text-white  py-5">
         <div className="container text-center">
           <div
-            className={`transition-opacity ${isVisible ? "opacity-100" : "opacity-0"
-              }`}
+            className={`transition-opacity ${
+              isVisible ? "opacity-100" : "opacity-0"
+            }`}
           >
             <div
-              className={`transition-opacity ${isVisible ? "opacity-100" : "opacity-0"
-                }`}
+              className={`transition-opacity ${
+                isVisible ? "opacity-100" : "opacity-0"
+              }`}
             >
               <h1 className="display-4 fw-bold mb-4">
                 Complete <span className="text-warning">School Management</span>
@@ -230,7 +232,7 @@ function LandingComponenet({
   );
 }
 export default function LandingPage() {
-  const { token ,loca} = useContext(SMAYAContext);
+  const { token, loca } = useContext(SMAYAContext);
   const [isVisible, setIsVisible] = useState(false);
   const navigate = useNavigate();
 

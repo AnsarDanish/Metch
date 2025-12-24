@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 import { SMAYAContext } from "../Context";
 import axios from "axios";
+import * as Bootstrap from "react-bootstrap";
 function flattenNodes(nodes = []) {
   let result = [];
   if (nodes.length === 0) return result;
@@ -20,7 +21,7 @@ function flattenNodes(nodes = []) {
     result.push({
       name: node.name,
       code: node.code,
-      script: node.ScriptResponse,
+      script: node.response,
     });
     if (node.childs && node.childs.length > 0) {
       result = result.concat(flattenNodes(node.childs));
@@ -45,16 +46,16 @@ const handleConvert = (jsxCode) => {
 };
 
 export default function StringToFunction(jsxJSON) {
-  const { setWidgetContext } = useContext(SMAYAContext);
-console.log("umarWidgetCOntext: ", setWidgetContext);
- 
   const TemplateContext = SMAYAContext;
+  const { mayaNavigate, getMayaObject } = useContext(TemplateContext);
+ 
+  
   const scriptResponse = {};
   const components = {};
-
   const globalVariables = {
     React,
     components,
+    ...Bootstrap,
     useNavigate,
     useContext,
     useState,
@@ -71,6 +72,9 @@ console.log("umarWidgetCOntext: ", setWidgetContext);
     useNavigation,
     scriptResponse,
     TemplateContext,
+    mayaNavigate,
+    // logOut,
+    getMayaObject,
   };
 
   const allScopeKeys = Object.keys(globalVariables).join(", ");
@@ -80,10 +84,11 @@ console.log("umarWidgetCOntext: ", setWidgetContext);
     childrens.forEach((child) => {
       const name = child.code.match(/function\s+([A-Za-z0-9_$]+)/)?.[1];
       components[name] = () => null;
-      scriptResponse[name] = child.script;
+      scriptResponse[name] = child.script
+        ? JSON.parse(child.script)
+        : child.script;
     });
     const childKeys = Object.keys(components);
-    console.log("umar cc", childrens);
 
     childrens.reverse().forEach((c) => {
       if (!c.code) return;
@@ -98,13 +103,18 @@ console.log("umarWidgetCOntext: ", setWidgetContext);
       const fc = new Function(
         ["globalVariables"],
         `
+       
       const { ${allScopeKeys} } = globalVariables;
       const { ${destructuredNames} } = components;
     ${temp}
+     ${childName}.displayName = "${childName}"
       return  ${childName}
+      //# sourceURL=Template.jsx/StringToFunction/${childName}.jsx
+
       `
       )(globalVariables);
       components[childName] = fc;
+
       components[childName].response = scriptResponse[childName];
     });
   }
@@ -112,20 +122,27 @@ console.log("umarWidgetCOntext: ", setWidgetContext);
   const allChildNames = childKeys.length > 0 ? childKeys.join(", ") : "";
 
   let parent = handleConvert(jsxJSON.parent.code);
-  const fnNAme = parent.match(/function\s+([A-Za-z0-9_$]+)/)?.[1];
+  const parentName = parent.match(/function\s+([A-Za-z0-9_$]+)/)?.[1];
+  let ParentCompo;
 
   const renderFunction = new Function(
     ["globalVariables"],
     `
+    
       const { ${allScopeKeys} } = globalVariables;
       const { ${allChildNames} } = components;
 
     ${parent}
-      return  ${fnNAme}
+     ${parentName}.displayName = "${parentName}"
+      return  ${parentName}
+    //# sourceURL=Template.jsx/StringToFunction/${parentName}.jsx
+
       `
   );
 
-  let ParentCompo = renderFunction(globalVariables);
+  ParentCompo = renderFunction(globalVariables);
+  let res = jsxJSON.parent.response;
+  ParentCompo.response = res ? JSON.parse(res) : res;
 
   return ParentCompo;
 }

@@ -206,7 +206,7 @@ export default function SignupPage() {
           <div className="w-100" style={{ maxWidth: "420px" }}>
             <div className="text-center  mb-4">
               <a
-                href="/"
+                onClick={() => navigate("/")}
                 className="d-flex justify-content-center align-items-center gap-2 mb-3 text-decoration-none"
               >
                 <div
@@ -379,7 +379,8 @@ export default function SignupPage() {
               </button>
 
               <div className="text-center mt-3">
-                Already have an account? <a href="/login">Login</a>
+                Already have an account?{" "}
+                <a onClick={() => navigate("/login")}>Login</a>
               </div>
             </form>
           </div>

@@ -72,7 +72,7 @@ export default class RestApi extends Component {
       })
       .then(
         (res) => {
-          console.log(res);
+  
 
           if ("Error" in res.data) {
             this.state.error = res.data.Error;

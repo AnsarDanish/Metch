@@ -289,7 +289,7 @@ export default function AdmissionPage() {
       client.value.id = cid;
     }
     data.formRecord[2].record = rcd;
-    console.log(data);
+
 
     admissionFn(data);
   };

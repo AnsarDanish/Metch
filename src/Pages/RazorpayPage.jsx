@@ -58,8 +58,6 @@ export default function RazorpayPage() {
       })
       .then((response) => {
         let res = response.data;
-        console.log({ res });
-
         if (res.Error || res.error) {
           resObj = res;
         } else {
@@ -150,7 +148,7 @@ export default function RazorpayPage() {
       .then((response) => {
         let res = response.data;
         let paymentId = res.formRecord[2].record.uni_id;
-        console.log(res.formRecord[2].record);
+     
 
         if (paymentId) {
           // saveShareDetails(json);

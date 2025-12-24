@@ -94,7 +94,7 @@ export default function LoginPage() {
           <div className="w-100" style={{ maxWidth: "420px" }}>
             <div className="text-center mb-4">
               <a
-                href="/"
+                onClick={() => navigate("/")}
                 className="d-flex justify-content-center align-items-center gap-2 mb-3 text-decoration-none"
               >
                 <div
@@ -155,7 +155,10 @@ export default function LoginPage() {
               <div className="position-relative">
                 <label className="form-label d-flex justify-content-between mb-0">
                   <span className="fw-semibold">Password</span>
-                  <a href="/forget" className="text-decoration-underline">
+                  <a
+                    onClick={() => navigate("/forget")}
+                    className="text-decoration-underline"
+                  >
                     Forgot your password?
                   </a>
                 </label>
@@ -196,7 +199,10 @@ export default function LoginPage() {
 
               <div className="text-center  mt-2">
                 Don't have an account?{" "}
-                <a href="/signup" className="text-decoration-underline">
+                <a
+                  onClick={() => navigate("/signup")}
+                  className="text-decoration-underline"
+                >
                   Sign up
                 </a>
               </div>

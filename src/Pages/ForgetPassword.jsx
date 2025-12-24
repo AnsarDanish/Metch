@@ -35,8 +35,6 @@ export default function ForgetPassword() {
       .post(loca + "/lom/set/forgetpassword", payload)
       .then((res) => {
         const data = res.data;
-        console.log("res", data);
-        
         if (data.Error) {
           setError(data.Error);
         } else {
@@ -48,7 +46,7 @@ export default function ForgetPassword() {
       })
       .catch((err) => {
         console.log("err", err);
-        
+
         setError("Something went wrong. Try again.");
         setBtnLoading(false);
       });
@@ -127,8 +125,19 @@ export default function ForgetPassword() {
               {btnLoading ? "Sending OTP..." : "Verify OTP"}
             </button>
 
-            <div className="text-center">
-              Remembered your password? <a href="/login">Login</a>
+            <div className="text-center d-flex justify-content-center g-2">
+              Remembered your password?{" "}
+              <a className="btn btn-link p-0 d-flex "
+                style={{
+                  cursor: "pointer",
+                }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigate("/login");
+                }}
+              >
+                Login
+              </a>
             </div>
           </form>
         </div>

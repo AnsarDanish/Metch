@@ -44,7 +44,7 @@ const ExternalForm = ({ tableName }) => {
       })
       .then((resp) => {
         const mltpgrecord = resp.data;
-        console.log(mltpgrecord);
+        
 
         if ("Error" in mltpgrecord) {
           setLoading(false);
@@ -273,7 +273,7 @@ const ExternalForm = ({ tableName }) => {
         })
         .then((resp) => {
           var registerrcd = resp.data;
-          console.log("registerrcd ", registerrcd);
+         
 
           if ("Error" in registerrcd) {
             setPage_error(true);

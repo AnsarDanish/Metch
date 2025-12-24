@@ -161,7 +161,7 @@ export default function GenerateNewPin() {
             </button>
 
             <div className="text-center">
-              Remembered your password? <a href="/login">Login</a>
+              Remembered your password? <a onClick={() => navigate("/login")}>Login</a>
             </div>
           </form>
         </div>

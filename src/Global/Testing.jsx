@@ -9,8 +9,6 @@ export default function Testing() {
   const [searchParams] = useSearchParams();
   const rid = searchParams.get("rid") || "";
   const rc = useLocation().state?.data || null;
-  console.log(rc);
-
   const today = new Date();
   const formatted = today.toLocaleDateString("en-US", {
     month: "long",
